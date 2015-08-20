@@ -1,5 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
+from django.contrib.comments.models import Comment
 
 #User structure
 class Team(models.Model):
@@ -13,22 +15,16 @@ class Team(models.Model):
 	def __unicode__(self):
 		return self.name
 
-class User(models.Model):
-	#
-	# Learn Django Auth first
-	#
-	Team = models.ForeignKey(Team)
-	name = models.CharField(max_length=128, unique=True)
-	created = models.DateTimeField()
+class UserProfile(models.Model):
+	user = models.OneToOneField(User)
+	Team = models.ForeignKey(Team, null= True, blank=True)
+	picture = models.ImageField(upload_to = 'profile_images', blank = True)
 
 	class Meta:
 		verbose_name_plural = "users"
 
 	def __unicode__(self):
-		return self.name
-#
-# Add URLs to models for links
-#
+		return self.user.username
 
 #ticketing structure
 class Category(models.Model):
@@ -46,8 +42,7 @@ class Category(models.Model):
 	def __unicode__(self):
 		return self.name
 
-class Comment(models.Model):
-	#User = models.ForeignKey()
+class TicketComment(Comment):
 	text = models.CharField(max_length=1028)
 	created = models.DateTimeField()
 
@@ -55,7 +50,7 @@ class Comment(models.Model):
 		verbose_name_plural = "comments"
 
 	def __unicode__(self):
-		return self.text[:30]
+		return self.text[:75]
 
 class Ticket(models.Model):
 	LOW = 'low'
@@ -64,7 +59,7 @@ class Ticket(models.Model):
 		(LOW, 'low'),
 		(HIGH, 'high')
 	)
-	Category = models.ForeignKey(Category, blank=True, null=True, default="None")
+	Category = models.ForeignKey(Category)
 	Team = models.ForeignKey(Team, null=True, blank=True)
 	#Reporter = models.ForeignKey(User)
 	reporter = models.CharField(max_length=128)

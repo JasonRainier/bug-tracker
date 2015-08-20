@@ -7,14 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0019_auto_20150424_1331'),
+        ('main', '0022_auto_20150628_1653'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='ticket',
-            name='Category',
-            field=models.ForeignKey(default=b'None', blank=True, to='main.Category', null=True),
+            model_name='userprofile',
+            name='Team',
+            field=models.ForeignKey(blank=True, to='main.Team', null=True),
             preserve_default=True,
         ),
     ]

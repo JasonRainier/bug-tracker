@@ -38,18 +38,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/home">category Tracker V0.5</a>
+          <a class="navbar-brand" href="/home">Ticket Tracker</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form>
+          <a href="/logout/" style="float:right; padding:1.5%;"class="btn btn-primary" role="button">Log out</a>
         </div><!--/.navbar-collapse -->
       </div>
     </nav>
@@ -63,41 +55,49 @@
     </div>
 
     <div class="container">
-      <!-- Example row of columns -->
       <div class="column">
         <div class="col-md-4">
-          <h2>Current categories</h2>
-          {% if categories %}
-      <ul>
-        {% for category in categories %}
-        <li>{{ category.name }}</li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <strong>There are no categories</strong>
-    {% endif %}
+          <div class="panel panel-default">
+            <div class="panel-heading"><h4>Add New Category</h4></div>
+            <div class="panel-body">
+              <p>&lt;form&gt;</p>
+              <!--todo-->
+              <p><a href="/categories" class="btn btn-default" href="#" role="button">Create &raquo;</a></p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="column">
         <div class="col-md-4">
-          <h2>Current tickets</h2>
-          {% if tickets %}
-      <ul>
-        {% for ticket in tickets %}
-        <li>{{ ticket.name }}</li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <strong>There are no tickets</strong>
-    {% endif %}
+          <div class="panel panel-default">
+            <div class="panel-heading"><h4>Current Tickets</h4></div>
+            <div class="panel-body">
+              {% if tickets %}
+                {% for ticket in tickets %}
+                  <p>{{ ticket.name }}</p>
+                {% endfor %}
+              {% else %}
+                <strong>There are no tickets</strong>
+              {% endif %}
+            </div>
+          </div>
         </div>
       </div>
       <div class="column">
         <div class="col-md-4">
-          <h2>Add New Category</h2>
-          <p>&lt;form&gt;</p>
-          <!--todo-->
-          <p><a href="/categories" class="btn btn-default" href="#" role="button">Create &raquo;</a></p>
+          <div class="panel panel-default">
+            <div class="panel-heading"><h4>All Categories</h4></div>
+              <div class="panel-body">
+                {% if categories %}
+                  {% for category in categories %}
+                  <p>{{ category.name }}</p>
+                  {% endfor %}
+                {% else %}
+                  <strong>There are no categories</strong>
+                {% endif %}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

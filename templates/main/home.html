@@ -38,19 +38,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/home">Ticket Tracker V0.5</a>
+          <a class="navbar-brand" href="/home">Ticket Tracker</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form>
+            <a href="/logout/" style="float:right; padding:1.5%;"class="btn btn-primary" role="button">Log out</a>
         </div><!--/.navbar-collapse -->
+
       </div>
     </nav>
 
@@ -66,53 +59,61 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-sm-4">
-          <h2>Categories</h2>
-          {% if categories %}
-			<ul>
-				{% for category in categories %}
-				<li><a href="category/{{ category.slug }}">{{ category.name }}</a></li>
-				{% endfor %}
-			</ul>
-		{% else %}
-			<strong>There are no categories</strong>
-		{% endif %}
-          <p><a href="/categories" class="btn btn-default" href="#" role="button">View Categories&raquo;</a></p>
+          <div class="panel panel-default">
+            <div class="panel-heading"><h2>Categories</h2></div>
+            <div class="panel-body">
+              {% if categories %}                
+  				      {% for category in categories %}
+  				      <p><a href="category/{{ category.slug }}">{{ category.name }}</a></p>
+                <hr>
+  				      {% endfor %}   			      
+  		        {% else %}
+  			       <strong>There are no categories</strong>
+  		      {% endif %}
+            <p><a href="/categories" class="btn btn-default" href="#" role="button">View All&raquo;</a></p>
+            </div>
+          </div>
         </div>
         <div class="col-sm-4">
-          <h2>Tickets</h2>
-          {% if tickets %}
-			<ul>
-				{% for ticket in tickets %}
-				<li><a href="category/{{ ticket.Category.slug }}/{{ ticket.slug }}">{{ ticket.name }}</a></li>
-				{% endfor %}
-			</ul>
-		{% else %}
-			<strong>There are no Tickets</strong>
-		{% endif %}
-          <p><a href="/tickets" class="btn btn-default" href="#" role="button">Create Ticket &raquo;</a></p>
-       </div>
+          <div class="panel panel-default">
+            <div class="panel-heading"><h2>Tickets</h2></div>
+            <div class="panel-body">
+              {% if tickets %}    			     
+    				    {% for ticket in tickets %}
+    				    <p><a href="category/{{ ticket.Category.slug }}/{{ ticket.slug }}">{{ ticket.name }}</a></p>
+                <hr>
+    				    {% endfor %}    			    
+    		      {% else %}
+    			      <strong>There are no Tickets</strong>
+    		        {% endif %}
+                <p><a href="/tickets" class="btn btn-default" href="#" role="button">Create New &raquo;</a></p>
+              </div>
+            </div>
+          </div>
         <div class="col-sm-4">
-          <h2>Teams</h2>
-          {% if teams %}
-			<ul>
-				{% for team in teams %}
-				<li>{{ team.name }}</li>
-				{% endfor %}
-			</ul>
-		{% else %}
-			<strong>There are no Teams</strong>
-		{% endif %}
-          <p><a href="/teams" class="btn btn-default" href="#" role="button">View Teams &raquo;</a></p>
+          <div class="panel panel-default">
+            <div class="panel-heading"><h2>Teams</h2></div>
+            <div class="panel-body">
+              {% if teams %}
+    				      {% for team in teams %}
+    				      <p>{{ team.name }}</p>
+                  <hr>
+    				      {% endfor %}    			      
+    		      {% else %}
+    			      <strong>There are no Teams</strong>
+    		      {% endif %}
+              <p><a href="/teams" class="btn btn-default" href="#" role="button">View Teams &raquo;</a></p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <hr>
-
-      <footer>
-        <p>&copy; Jason Rainier 2015</p>
-      </footer>
     </div> <!-- /container -->
+    <hr>
 
+    <footer>
+      <p>&copy; Jason Rainier 2015</p>
+    </footer>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

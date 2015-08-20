@@ -1,14 +1,17 @@
 from django import forms
-from main.models import Ticket, Category, Comment
+from django.contrib.auth.models import User
+from django.contrib.comments.forms import CommentForm
+from main.models import Ticket, Category, TicketComment, UserProfile
 
 class TicketForm(forms.ModelForm):
-	reporter = forms.CharField(max_length=128, help_text="Please enter your name.")
+	Category = forms.ModelChoiceField(queryset=Category.objects.order_by('name'))
+	reporter = forms.CharField()
 	name = forms.CharField(max_length=256, help_text="Issue Title.")
 	description = forms.CharField(max_length=1028, help_text="Please descibe your issue.")
 
 	class Meta:
 		model = Ticket
-		fields = ('reporter', 'name', 'description',)
+		fields = ('Category', 'name', 'description',)
 
 class CategoryForm(forms.ModelForm):
 	name = forms.CharField(max_length=256, help_text="Issue Title.")
@@ -21,6 +24,18 @@ class CommentForm(forms.ModelForm):
 	text = forms.CharField(max_length=1028)
 
 	class Meta:
-		model = Comment
+		model = TicketComment
 		fields = ('text',)
-		#add user to fields
+
+class UserForm(forms.ModelForm):
+	password = forms.CharField(widget = forms.PasswordInput())
+
+	class Meta:
+		model = User
+		fields = ('username', 'email', 'password', 'first_name', 'last_name',)
+
+class UserProfileForm(forms.ModelForm):
+
+	class Meta:
+		model = UserProfile
+		fields = ('picture',)

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Is anyone getting tired of repeatedly entering the header over and over?? -->
+        <title>Ticket Tracker Login</title>
+    </head>
+
+    <body style="background:#212121;">
+        <div style="width: 400px; margin: 200px auto 0 auto;">
+            <div class="container">
+                <div class="column">
+                    <div class="col-md-4" style=" background:#337AB7; padding:5% 5%; text-align:left; border: 1px solid #2E6DA4; border-radius:40px; text-align:center;">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="text-align:center;"><h1>Login</h1></div>
+                            <div class="panel-body">
+                                <form id="login_form" method="POST" action="/login/">
+                                    {% csrf_token %}
+                                    <input type="text" placeholder="username" style="margin:0 0 2% 0;"name="username" value="" size="50" />
+                                    <br/>
+                                    <input type="password" placeholder="password" name="password" value="" size="50" />
+                                    <br/>
+                                    <div style="text-align:center; padding: 2% 0"><input type="submit" value="Enter" /></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

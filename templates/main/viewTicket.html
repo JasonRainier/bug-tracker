@@ -38,68 +38,107 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/home">Ticket Tracker V0.5</a>
+          <a class="navbar-brand" href="/home">Ticket Tracker</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form>
+          <a href="/logout/" style="float:right; padding:1.5%;"class="btn btn-primary" role="button">Log out</a>
         </div><!--/.navbar-collapse -->
       </div>
     </nav>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
-      <div class="container">
+      <div class="container" style="text-align:center;">
         <div class="row">
-          <div class="col-sm-4">
+          <div class="span4">
             <h2>{{ ticket.name }}</h2>
-            <h5>Type: {{ category.name }}</h5>
-            <h5>Reported by: {{ ticket.reporter }}.</h5>
-            <h5>Date Created{{ ticket.created }}.</h5>
-          </div>
-        </div>
-      </div>
-      <div class="container">
-        <div class="column">
-          <div class="col-md-offset-*">
-            <h5>Assigned to: {{ ticket.Team }}</h5>
-            <h5>Priority: {{ ticket.priority }}</h5>
           </div>
         </div>
       </div>
     </div>
-    <p>&emsp;&emsp;**Close/resolve ticket button**
-
     <div class="container">
-            <div class="column">
-        <div class="col-md-4">
-          <h4>Issue:<br>&emsp;{{ ticket.description }}</h4>
-          {% if tickets %}
-      <ul>
-        {% for ticket in tickets %}
-        <li>{{ ticket.comment.created }}</li>
-        <li>{{ ticket.comment.text }}</li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>**Add comment form**</p>
-      <strong>There are no comments</strong>
-    {% endif %}
+      <div class="column">
+        <div class="col-md-4" style="float:left;">
+          <div class="panel panel-default" style="padding-bottom:12px;">
+            <div class="panel-heading"><h4>Ticket Info</h4></div>
+            <div class="panel-body">
+              <p><strong>Date Created: </strong>{{ ticket.created }}</p>
+              <p><strong>Category: </strong>{{ ticket.Category }}</p>
+              <p><strong>Priority: </strong>{{ ticket.priority }}</p>
+            </div>
+          </div>
         </div>
       </div>
-      <hr>
-
-      <footer>
-        <p>&copy; Jason Rainier 2015</p>
-      </footer>
-    </div> <!-- /container -->
+      <div class="column">
+        <div class="col-md-3" style="float:right;">
+          <div class="panel panel-default">
+            <div class="panel-heading"><h4>Additional Info</h4></div>
+            <div class="panel-body">
+              <p><strong>Reported By: </strong>{{ ticket.reporter }}</p>
+              <p><strong>Assigned To: </strong>{{ ticket.team }}</p>
+              <p style="text-align:center;"><button type="button" class="btn btn-danger">Close Ticket</button></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="column">
+        <div class="col-md-12" style="margin: auto;">
+          <div class="panel panel-default">
+            <div class="panel-heading"><h4>Issue Description</h4></div>
+            <div class="panel-body">{{ ticket.description }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="container">
+      <div class="column">
+        <div class="col-md-12" style="margin: auto;">
+          <div class="panel panel-default">
+            <div class="panel-heading"><h4>Comments</h4></div>
+              <div class="panel-body">
+                {% load comments %}
+                {%  render_comment_list for ticket %}
+                <hr>
+              </div>
+              <div class="span8">
+                {% get_comment_form for ticket as form %}
+                  <form action="{% comment_form_target %}" method="post">
+                    {% csrf_token %}
+                    <p style="display:none"> {{ form.honeypot }} </p>
+                    {{ form.content_type }}
+                    {{ form.object_pk }}
+                    {{ form.timestamp }}
+                    {{ form.security_hash }}
+                    {% for field in form %}
+                      {% ifequal field.name "name" %}
+                        <input id="id_name" type="hidden" name ="name" value="{{ user.username }}" />
+                      {% else %}
+                        {% ifequal field.name "email" %}
+                          <input id="id_email" type="hidden" name="email" value="{{ user.email }}" />
+                      {% else %}
+                      {% endifequal %}
+                      {% endifequal %}
+                    {% endfor %}
+                    <textarea id= "id_comment" rows="10" columns="50" maxlength="3000" style="height:120px; width:70%; margin-left:15%;" type="comment" name="comment"></textarea>
+                    <input id="id_url" type="hidden" name="url" value="http://127.0.0.1:8000/home"/> <!-- placeholder url -->
+                    <div style="text-align:center; margin: 2% 0 2% 0;">
+                      <input type="submit" name="submit"  value="submit"/>
+                    </div>
+                    <input type="hidden" name="next" value="{{ request.path }}" />
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p>&copy; Jason Rainier 2015</p>
+    </footer>
+  </div> <!-- /container -->
 
 
     <!-- Bootstrap core JavaScript

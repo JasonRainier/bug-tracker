@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ticket Tracker</title>
+    </head>
+
+    <body>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-5">
+                <h1>Register with Ticket Tracker</h1>
+
+                {% if registered %}
+                <strong>Thank you for registering!</strong>
+                <a href="/home">Return to the homepage.</a><br />
+                {% else %}
+
+                <form id="user_form" method="post" action="/newUser/" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ user_form.as_p }}
+                    {{ profile_form.as_p }}
+                    <input type="submit" name="submit" value="Register" />
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </body>
+</html>
