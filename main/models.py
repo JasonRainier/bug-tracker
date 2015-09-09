@@ -29,7 +29,7 @@ class UserProfile(models.Model):
 #ticketing structure
 class Category(models.Model):
 	name = models.CharField(max_length=128, unique=True)
-	created = models.DateTimeField()
+	created = models.DateTimeField(auto_now=True)
 	slug = models.SlugField()
 
 	class Meta:

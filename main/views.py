@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from main.models import Category, Ticket, TicketComment, Team
-from main.forms import TicketForm, UserForm, UserProfileForm
+from main.forms import TicketForm, CategoryForm, UserForm, UserProfileForm
 
 def newUser(request):
 	registered = False
@@ -80,6 +80,18 @@ def categories(request):
 	'tickets' : ticket_list
 	}
 
+	#process new Category
+	if request.method == 'POST':
+		form = CategoryForm(request.POST)
+		if form.is_valid():
+			temp = form.save(commit = False)
+			temp.save()
+
+		else:
+			print form.error
+	else:
+		form = CategoryForm()
+
 	return render(request, 'main/categories.html', context_dict)
 
 @login_required
@@ -91,6 +103,7 @@ def category(request, slug):
 	except Category.DoesNotExist:
 		pass
 	context_dict['tickets'] = Ticket.objects.filter(Category = category)
+	
 	return render(request, 'main/category.html', context_dict)
 
 @login_required
@@ -106,11 +119,11 @@ def tickets(request):
 			temp = form.save(commit = False)
 			temp.reporter = request.user
 			temp.save()
-
 		else:
 			print form.error
 	else:
 		form = TicketForm()
+	
 	return render(request, 'main/tickets.html', context_dict)
 
 @login_required

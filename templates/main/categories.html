@@ -60,9 +60,11 @@
           <div class="panel panel-default">
             <div class="panel-heading"><h4>Add New Category</h4></div>
             <div class="panel-body">
-              <p>&lt;form&gt;</p>
-              <!--todo-->
-              <p><a href="/categories" class="btn btn-default" href="#" role="button">Create &raquo;</a></p>
+              <form id="CategoryForm" method="post" action="categories">
+                {% csrf_token %}
+                <input id="name" name="name" />
+                <input type="submit" name="submit" value="Create Category" />
+              </form>
             </div>
           </div>
         </div>
@@ -74,7 +76,8 @@
             <div class="panel-body">
               {% if tickets %}
                 {% for ticket in tickets %}
-                  <p>{{ ticket.name }}</p>
+                  <p><a href="category/{{ ticket.Category.slug }}/{{ ticket.slug }}">{{ ticket.name }}</a></p>
+                <hr>
                 {% endfor %}
               {% else %}
                 <strong>There are no tickets</strong>
@@ -90,7 +93,8 @@
               <div class="panel-body">
                 {% if categories %}
                   {% for category in categories %}
-                  <p>{{ category.name }}</p>
+                  <p><a href="category/{{ category.slug }}">{{ category.name }}</a></p>
+                <hr>
                   {% endfor %}
                 {% else %}
                   <strong>There are no categories</strong>

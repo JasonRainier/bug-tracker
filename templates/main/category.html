@@ -55,23 +55,27 @@
     </div>
 
     <div class="container">
-            <div class="column">
-        <div class="col-md-4">
-          <h2>Current tickets for {{ category.name }}</h2>
-          {% if tickets %}
-      <ul>
-        {% for ticket in tickets %}
-        <li><a href="{{ ticket.slug }}">{{ ticket.name }}</a> </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <strong>There are no tickets</strong>
-    {% endif %}
+      <div class="column">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading"><h2>Current tickets for {{ category.name }}</h2></div>
+              <div class="panel-body">
+                {% if tickets %}
+                  {% for ticket in tickets %}
+                  <a href="{{ ticket.slug }}">{{ ticket.name }}</a>
+                  <hr>
+                  {% endfor %}
+                {% else %}
+                  <strong>There are no tickets</strong>
+                {% endif %}
+              </div>
+            </div>
+            <p>**Add statistics and relevant data representations**</p>
+            <hr>
+          </div>
         </div>
       </div>
-      <p>**Add statistics and relevant data representations**</p>
-      <hr>
-
+      </body>
       <footer>
         <p>&copy; Jason Rainier 2015</p>
       </footer>
