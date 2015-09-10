@@ -1,5 +1,5 @@
 # bug-tracker
-A simple bug tracking web application written with Python 2.7 and Django 1.7. It is still a work in progress.
+A simple bug/issue tracking & project management web application written with Python 2.7 and Django 1.7. It is still a work in progress.
 
 #How to Run
 1. make sure you have python 2.7 and django 1.7
